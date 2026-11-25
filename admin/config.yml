@@ -1,0 +1,82 @@
+# Panel de edición de SLP Prep Room (Decap CMS)
+backend:
+  name: git-gateway
+  branch: main
+
+locale: es
+site_url: https://slp-prep-room.netlify.app
+display_url: https://slp-prep-room.netlify.app
+media_folder: images/uploads
+public_folder: /images/uploads
+
+collections:
+  - name: posts
+    label: Entradas
+    label_singular: Entrada
+    folder: content/posts
+    format: json
+    extension: json
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    summary: "{{title}} · {{skill}} · {{date}}"
+    sortable_fields: [date, title, skill]
+    view_filters:
+      - { label: Listening, field: skill, pattern: listening }
+      - { label: Speaking, field: skill, pattern: speaking }
+      - { label: Reading, field: skill, pattern: reading }
+      - { label: Writing, field: skill, pattern: writing }
+      - { label: Grammar & vocab, field: skill, pattern: language }
+      - { label: Exam info, field: skill, pattern: exam }
+    fields:
+      - { label: "Título", name: title, widget: string }
+      - label: "Sección (skill)"
+        name: skill
+        widget: select
+        default: writing
+        options:
+          - { label: Listening, value: listening }
+          - { label: Speaking, value: speaking }
+          - { label: Reading, value: reading }
+          - { label: Writing, value: writing }
+          - { label: "Grammar & vocab", value: language }
+          - { label: "Exam info", value: exam }
+      - label: "Tipo"
+        name: kind
+        widget: select
+        default: material
+        options:
+          - { label: "My material (material propio)", value: material }
+          - { label: "Activity (actividad)", value: activity }
+          - { label: "Link (enlace)", value: link }
+          - { label: "Blog post", value: blog }
+      - label: "Nivel"
+        name: level
+        widget: select
+        required: false
+        options: ["SLP 1", "SLP 2", "SLP 3"]
+      - { label: "Resumen corto (sale en la tarjeta)", name: summary, widget: string, required: false }
+      - label: "Enlace (opcional)"
+        name: url
+        widget: string
+        required: false
+        pattern: ['^$|^https://', "Tiene que empezar por https://"]
+      - label: "Etiquetas"
+        name: tags
+        widget: list
+        required: false
+        hint: "Escríbelas separadas por comas. Las entradas que comparten etiqueta aparecen como relacionadas."
+      - { label: "Texto", name: body, widget: markdown, required: false }
+      - { label: "Fecha", name: date, widget: datetime, format: "YYYY-MM-DD", date_format: "DD/MM/YYYY", time_format: false }
+      - { label: "Fijar arriba", name: pinned, widget: boolean, default: false, required: false }
+
+  - name: settings
+    label: Ajustes de la web
+    files:
+      - name: site
+        label: Textos generales
+        file: content/settings.json
+        fields:
+          - { label: "Nombre de la web", name: site_title, widget: string }
+          - { label: "Texto de bienvenida", name: intro, widget: text }
+          - { label: "Autora (sale en el pie)", name: author, widget: string }
+          - { label: "Texto del pie", name: footer, widget: string, required: false }

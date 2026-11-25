@@ -1,0 +1,16 @@
+{
+  "title": "VOA Learning English",
+  "skill": "listening",
+  "kind": "link",
+  "level": "SLP 1",
+  "tags": [
+    "news",
+    "slow-speech",
+    "self-study"
+  ],
+  "summary": "News read slowly and clearly, with transcripts.",
+  "body": "Short news stories at a slower speed, with the text underneath. Listen first without reading, then check with the transcript.",
+  "url": "https://learningenglish.voanews.com",
+  "date": "2026-11-10",
+  "pinned": false
+}

@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SLP Prep Room</title>
+<meta name="description" content="STANAG 6001 exam preparation: listening, speaking, reading and writing resources. Created by Raquel.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@500;700&family=Source+Sans+3:wght@400;600&display=swap">
+<style>
+/* VOICE: friendly, clear, a teacher's study room — encouraging, never noisy.
+   IDEA: a ring binder with four coloured index tabs, one per skill.
+   PICTURE: the four skill tabs themselves, large, as the way in; the resource list right under.
+   COLOUR and TYPE: white paper, ink #15202b; tabs blue / coral / violet / amber. Sora titles, Source Sans 3 body.
+   LAYOUT: modest header, tab row, filters, card list; post opens in a reading panel with related posts. */
+:root{color-scheme:light dark;
+--bg:light-dark(#ffffff,#11161c);--paper:light-dark(#f4f6f8,#1a2129);--ink:light-dark(#15202b,#e8edf2);--soft:light-dark(#55626f,#9fadba);--line:light-dark(#dde3e8,#2c3641);
+--L:#2459d6;--S:#e0533d;--R:#7b45d1;--W:#d98a00;--G:#11806a;--E:light-dark(#15202b,#c9d3dc);--acc:light-dark(#2459d6,#7ea2ff)}
+:root[data-theme=light]{color-scheme:light}:root[data-theme=dark]{color-scheme:dark}
+*{box-sizing:border-box;min-width:0}
+body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.55 "Source Sans 3",system-ui,sans-serif;overflow-x:clip}
+h1,h2,h3{font-family:Sora,system-ui,sans-serif;line-height:1.1;text-wrap:balance;margin:0}
+a{color:var(--acc)}
+.wrap{max-width:1240px;margin:0 auto;padding:0 max(4vw,16px)}
+header{padding:28px 0 18px;display:flex;flex-wrap:wrap;gap:12px 24px;align-items:end;justify-content:space-between}
+header h1{font-size:clamp(32px,4.4vw,46px)}
+header p{margin:6px 0 0;color:var(--soft);max-width:60ch}
+.tabs{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:10px;margin:8px 0 18px}
+.tab{appearance:none;border:0;cursor:pointer;text-align:left;color:#fff;border-radius:14px 14px 6px 6px;padding:16px 14px 14px;min-height:112px;display:flex;flex-direction:column;justify-content:space-between;font:inherit;position:relative;box-shadow:inset 0 -6px 0 rgba(0,0,0,.14);transition:transform .15s}
+.tab b{font-family:Sora,sans-serif;font-size:19px}
+.tab span{font-size:14px;opacity:.92}
+.tab svg{width:30px;height:30px}
+.tab[aria-pressed=true]{transform:translateY(-6px);box-shadow:inset 0 -6px 0 rgba(0,0,0,.14),0 8px 18px rgba(0,0,0,.18)}
+.tab[aria-pressed=false]{opacity:.82}
+.tab:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:3px solid var(--acc);outline-offset:2px}
+.allbar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-bottom:14px}
+.chip{border:1px solid var(--line);background:var(--bg);color:var(--ink);border-radius:999px;padding:8px 14px;min-height:40px;font:inherit;font-size:15px;cursor:pointer}
+.chip[aria-pressed=true]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.filters{display:flex;flex-wrap:wrap;gap:10px;align-items:center;padding:14px;background:var(--paper);border-radius:12px;margin-bottom:18px}
+.filters input,.filters select{font:inherit;font-size:16px;padding:9px 12px;min-height:44px;border:1px solid var(--line);border-radius:10px;background:var(--bg);color:var(--ink)}
+.filters input{flex:1 1 240px}
+.tagrow{display:flex;flex-wrap:wrap;gap:6px;margin:-6px 0 18px}
+.tag{border:0;background:var(--paper);color:var(--soft);border-radius:6px;padding:4px 9px;font:inherit;font-size:14px;cursor:pointer;min-height:32px}
+.tag[aria-pressed=true]{background:var(--acc);color:#fff}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,300px),1fr));gap:14px;margin-bottom:40px}
+.card{border:1px solid var(--line);border-radius:12px;padding:16px 16px 14px;background:var(--bg);display:flex;flex-direction:column;gap:8px;cursor:pointer;position:relative;border-top:6px solid var(--c)}
+.card:hover{box-shadow:0 6px 18px rgba(0,0,0,.08)}
+.card h3{font-size:19px}
+.meta{display:flex;flex-wrap:wrap;gap:6px 10px;font-size:14px;color:var(--soft);align-items:center}
+.kind{font-weight:600;color:var(--c)}
+.card p{margin:0;color:var(--soft);font-size:16px}
+.pin{position:absolute;top:10px;right:12px;font-size:13px;color:var(--soft)}
+.empty{padding:40px;text-align:center;color:var(--soft);border:1px dashed var(--line);border-radius:12px}
+.note{font-size:14px;color:var(--soft);margin:0 0 12px}
+/* reader */
+.veil{position:fixed;inset:0;background:rgba(10,15,20,.45);display:none;z-index:10}
+.veil.on{display:block}
+.panel{position:fixed;top:0;right:0;bottom:0;width:min(720px,100%);background:var(--bg);z-index:11;overflow-y:auto;transform:translateX(100%);transition:transform .2s;padding:22px max(4vw,18px) 40px;border-left:8px solid var(--c,var(--acc))}
+.panel.on{transform:none}
+.panel h2{font-size:clamp(26px,3.4vw,34px);margin:10px 0 8px}
+.panel .body h4{font-family:Sora,sans-serif;font-size:18px;margin:22px 0 6px}
+.panel .body ul{padding-left:1.2em}
+.go{display:inline-block;margin:14px 0;padding:11px 18px;background:var(--c,var(--acc));color:#fff;border-radius:10px;text-decoration:none;font-weight:600}
+.close{float:right}
+.rel{margin-top:30px;border-top:1px solid var(--line);padding-top:16px}
+.rel h3{font-size:17px;margin-bottom:10px}
+.rel button{display:block;width:100%;text-align:left;margin-bottom:8px;border:1px solid var(--line);background:var(--bg);color:var(--ink);border-radius:10px;padding:10px 12px;font:inherit;cursor:pointer;border-left:5px solid var(--c)}
+.btn{font:inherit;font-size:16px;min-height:44px;padding:9px 16px;border-radius:10px;border:1px solid var(--line);background:var(--bg);color:var(--ink);cursor:pointer}
+.btn.pri{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.btn.danger{color:#c23a28;border-color:#e9b3aa}
+.teacher{display:none;gap:8px;flex-wrap:wrap}
+.teacher.on{display:flex}
+/* editor */
+form.ed{display:grid;gap:12px}
+form.ed label{display:grid;gap:4px;font-weight:600;font-size:15px}
+form.ed input,form.ed select,form.ed textarea{font:inherit;font-size:16px;font-weight:400;padding:9px 12px;border:1px solid var(--line);border-radius:10px;background:var(--bg);color:var(--ink);min-height:44px}
+form.ed textarea{min-height:220px;resize:vertical}
+.two{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.hint{font-weight:400;color:var(--soft);font-size:14px}
+.ask{background:var(--paper);border-radius:10px;padding:12px;display:none;gap:10px;align-items:center;flex-wrap:wrap}
+.ask.on{display:flex}
+.status{font-size:14px;color:var(--soft);min-height:1.4em}
+footer{border-top:1px solid var(--line);padding:22px 0 40px;color:var(--soft);font-size:14px}
+@media(max-width:900px){.tabs{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:600px){.tabs{grid-template-columns:repeat(2,minmax(0,1fr))}.tab{min-height:88px}.two{grid-template-columns:1fr}}
+@media(prefers-reduced-motion:reduce){.tab,.panel{transition:none}}
+</style>
+<script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/marked/12.0.2/marked.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.1.6/purify.min.js"></script>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div>
+      <h1 id="siteTitle">SLP Prep Room</h1>
+      <p id="intro">Materials, links and tips to get you ready for the STANAG 6001 exam. Pick a skill, filter by tag, open anything that looks useful.</p>
+    </div>
+  </header>
+
+  <div class="allbar">
+    <button class="chip" data-skill="all" aria-pressed="true" type="button">Everything</button>
+    <span class="note" id="countNote" style="margin:0"></span>
+  </div>
+  <nav class="tabs" id="tabs" aria-label="Skills"></nav>
+
+  <div class="filters">
+    <input id="q" type="search" placeholder="Search titles, text and tags" aria-label="Search">
+    <select id="kindSel" aria-label="Type of resource"></select>
+    <select id="levelSel" aria-label="Level">
+      <option value="">All levels</option><option>SLP 1</option><option>SLP 2</option><option>SLP 3</option>
+    </select>
+  </div>
+  <div class="tagrow" id="tagrow"></div>
+  <main class="grid" id="grid"><div class="empty">Loading resources…</div></main>
+
+  <footer>
+    <p style="margin:0 0 6px"><strong>Created by <span id="author">Raquel</span></strong> · <span id="footerText">New resources appear here as I add them — check back before each class.</span></p>
+    <a href="/admin/" style="color:var(--soft)">Teacher login</a>
+  </footer>
+</div>
+
+<div class="veil" id="veil"></div>
+<aside class="panel" id="panel" aria-live="polite"></aside>
+
+<script>
+{
+const SKILLS=[
+ {id:"listening",name:"Listening",c:"var(--L)",d:"Audio, podcasts, news",ic:'<path d="M5 16v-4a7 7 0 0 1 14 0v4" fill="none" stroke="#fff" stroke-width="2"/><rect x="3" y="14" width="5" height="7" rx="2" fill="#fff"/><rect x="16" y="14" width="5" height="7" rx="2" fill="#fff"/>'},
+ {id:"speaking",name:"Speaking",c:"var(--S)",d:"Interview, role-play, debate",ic:'<path d="M4 5h16v10H9l-5 4z" fill="#fff"/>'},
+ {id:"reading",name:"Reading",c:"var(--R)",d:"Texts and strategies",ic:'<path d="M3 5c3-1 6-1 9 1v14c-3-2-6-2-9-1zM21 5c-3-1-6-1-9 1v14c3-2 6-2 9-1z" fill="#fff"/>'},
+ {id:"writing",name:"Writing",c:"var(--W)",d:"Emails, reports, essays",ic:'<path d="M4 20l1-5L16 4l4 4L9 19z" fill="#fff"/>'},
+ {id:"language",name:"Grammar & vocab",c:"var(--G)",d:"Language toolkit",ic:'<text x="2" y="18" font-size="15" font-family="Sora,sans-serif" font-weight="700" fill="#fff">Aa</text>'},
+ {id:"exam",name:"Exam info",c:"var(--E)",d:"Format, levels, tips",ic:'<rect x="5" y="3" width="14" height="18" rx="2" fill="#fff"/><path d="M8 9h8M8 13h8M8 17h5" stroke="#555" stroke-width="1.6"/>'}
+];
+const KINDS={material:"My material",activity:"Activity",link:"Link",blog:"Blog post"};
+const SK=Object.fromEntries(SKILLS.map(s=>[s.id,s]));
+const $=s=>document.querySelector(s);
+const esc=v=>String(v??"").replace(/[&<>"']/g,ch=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[ch]));
+const safeUrl=u=>typeof u==="string"&&/^https:\/\//i.test(u.trim())?u.trim():"";
+
+let posts=[];
+const st={skill:"all",q:"",kind:"",level:"",tag:""};
+
+function norm(d){return{id:String(d.id),title:String(d.title||"Untitled"),skill:SK[d.skill]?d.skill:"exam",kind:KINDS[d.kind]?d.kind:"material",level:String(d.level||""),tags:(Array.isArray(d.tags)?d.tags:String(d.tags||"").split(",")).map(t=>String(t).toLowerCase().trim()).filter(Boolean),summary:String(d.summary||""),body:String(d.body||""),url:safeUrl(d.url),date:String(d.date||"").slice(0,10),pinned:!!d.pinned}}
+
+/* Markdown from the panel → safe HTML (simple fallback if the libraries didn't load) */
+function md(t){
+  if(window.marked&&window.DOMPurify){
+    const div=document.createElement("div");
+    div.innerHTML=DOMPurify.sanitize(marked.parse(t));
+    div.querySelectorAll("a").forEach(a=>{if(!safeUrl(a.getAttribute("href")||"")&&!(a.getAttribute("href")||"").startsWith("/"))a.removeAttribute("href");else{a.target="_blank";a.rel="noopener"}});
+    div.querySelectorAll("h1,h2,h3").forEach(h=>{const n=document.createElement("h4");n.innerHTML=h.innerHTML;h.replaceWith(n)});
+    return div.innerHTML;
+  }
+  const out=[];let list=null;const inl=s=>esc(s).replace(/\*\*(.+?)\*\*/g,"<strong>$1</strong>");
+  for(const raw of t.split(/\n/)){const l=raw.trim();
+    if(/^[-*] /.test(l)){(list=list||[]).push("<li>"+inl(l.slice(2))+"</li>");continue}
+    if(list){out.push("<ul>"+list.join("")+"</ul>");list=null}
+    if(!l)continue;
+    out.push(/^#+ /.test(l)?"<h4>"+inl(l.replace(/^#+ /,""))+"</h4>":"<p>"+inl(l)+"</p>")}
+  if(list)out.push("<ul>"+list.join("")+"</ul>");
+  return out.join("");
+}
+
+function renderTabs(){
+  const counts={};posts.forEach(p=>counts[p.skill]=(counts[p.skill]||0)+1);
+  $("#tabs").innerHTML=SKILLS.map(s=>`<button class="tab" type="button" data-skill="${s.id}" style="background:${s.c}" aria-pressed="${st.skill===s.id}"><svg viewBox="0 0 24 24" aria-hidden="true">${s.ic}</svg><div><b>${s.name}</b><br><span>${s.d} · ${counts[s.id]||0}</span></div></button>`).join("");
+  document.querySelector('.chip[data-skill=all]').setAttribute("aria-pressed",st.skill==="all");
+}
+function filtered(ignoreTag){
+  const q=st.q.toLowerCase();
+  return posts.filter(p=>(st.skill==="all"||p.skill===st.skill)&&(!st.kind||p.kind===st.kind)&&(!st.level||p.level===st.level)&&(ignoreTag||!st.tag||p.tags.includes(st.tag))&&(!q||(p.title+" "+p.summary+" "+p.body+" "+p.tags.join(" ")).toLowerCase().includes(q)))
+   .sort((a,b)=>(b.pinned-a.pinned)||b.date.localeCompare(a.date));
+}
+function renderTags(){
+  const tags=[...new Set(filtered(true).flatMap(p=>p.tags))].sort();
+  if(st.tag&&!tags.includes(st.tag))tags.unshift(st.tag);
+  $("#tagrow").innerHTML=tags.map(t=>`<button class="tag" type="button" data-tag="${esc(t)}" aria-pressed="${st.tag===t}">#${esc(t)}</button>`).join("");
+}
+function card(p){
+  const s=SK[p.skill];
+  return `<article class="card" tabindex="0" data-open="${esc(p.id)}" style="--c:${s.c}">${p.pinned?'<span class="pin">Pinned</span>':""}
+  <div class="meta"><span class="kind">${KINDS[p.kind]}</span><span>${s.name}</span>${p.level?`<span>${esc(p.level)}</span>`:""}</div>
+  <h3>${esc(p.title)}</h3>${p.summary?`<p>${esc(p.summary)}</p>`:""}
+  <div class="meta">${p.tags.slice(0,4).map(t=>"#"+esc(t)).join(" ")}</div></article>`;
+}
+function render(){
+  renderTabs();renderTags();
+  const list=filtered(false);
+  $("#countNote").textContent=`${posts.length} resources`;
+  $("#grid").innerHTML=list.length?list.map(card).join(""):`<div class="empty">${posts.length?"Nothing matches these filters yet.":"No resources yet — check back soon."}</div>`;
+}
+function related(p){
+  return posts.filter(o=>o.id!==p.id).map(o=>({o,s:o.tags.filter(t=>p.tags.includes(t)).length*2+(o.skill===p.skill?1:0)})).filter(x=>x.s>1).sort((a,b)=>b.s-a.s).slice(0,4).map(x=>x.o);
+}
+function openPost(id){
+  const p=posts.find(x=>x.id===id);if(!p)return;
+  const s=SK[p.skill],rel=related(p),pan=$("#panel");
+  pan.style.setProperty("--c",s.c);
+  pan.innerHTML=`<button class="btn close" type="button" data-close>Close</button>
+  <div class="meta"><span class="kind" style="--c:${s.c}">${KINDS[p.kind]}</span><span>${s.name}</span>${p.level?`<span>${esc(p.level)}</span>`:""}${p.date?`<span>${esc(p.date)}</span>`:""}</div>
+  <h2>${esc(p.title)}</h2>${p.summary?`<p style="color:var(--soft);margin:0">${esc(p.summary)}</p>`:""}
+  ${p.url?`<a class="go" href="${esc(p.url)}" target="_blank" rel="noopener">Open resource ↗</a>`:""}
+  <div class="body">${md(p.body)}</div>
+  <div class="tagrow" style="margin:16px 0 0">${p.tags.map(t=>`<button class="tag" type="button" data-tagjump="${esc(t)}">#${esc(t)}</button>`).join("")}</div>
+  ${rel.length?`<div class="rel"><h3>Related</h3>${rel.map(o=>`<button type="button" data-open="${esc(o.id)}" style="--c:${SK[o.skill].c}"><strong>${esc(o.title)}</strong><br><span class="meta">${KINDS[o.kind]} · ${SK[o.skill].name}</span></button>`).join("")}</div>`:""}`;
+  $("#veil").classList.add("on");pan.classList.add("on");pan.scrollTop=0;
+  history.replaceState(null,"","#post-"+p.id);
+}
+function hide(){$("#veil").classList.remove("on");$("#panel").classList.remove("on");history.replaceState(null,"",st.skill==="all"?location.pathname:"#"+st.skill)}
+
+document.addEventListener("click",e=>{
+  const t=e.target.closest("button,[data-open]");if(!t)return;
+  if(t.dataset.skill){st.skill=st.skill===t.dataset.skill&&t.dataset.skill!=="all"?"all":t.dataset.skill;st.tag="";history.replaceState(null,"",st.skill==="all"?location.pathname:"#"+st.skill);render();return}
+  if(t.dataset.tag!==undefined){st.tag=st.tag===t.dataset.tag?"":t.dataset.tag;render();return}
+  if(t.dataset.tagjump){st.tag=t.dataset.tagjump;st.skill="all";hide();render();return}
+  if(t.dataset.open){openPost(t.dataset.open);return}
+  if(t.hasAttribute("data-close"))hide();
+});
+document.addEventListener("keydown",e=>{
+  if(e.key==="Escape")hide();
+  if(e.key==="Enter"&&e.target.matches(".card"))openPost(e.target.dataset.open);
+});
+$("#veil").addEventListener("click",hide);
+$("#q").addEventListener("input",e=>{st.q=e.target.value;render()});
+$("#kindSel").innerHTML=`<option value="">All types</option>`+Object.entries(KINDS).map(([k,v])=>`<option value="${k}">${v}</option>`).join("");
+$("#kindSel").addEventListener("change",e=>{st.kind=e.target.value;render()});
+$("#levelSel").addEventListener("change",e=>{st.level=e.target.value;render()});
+function fromHash(){const h=decodeURIComponent(location.hash.slice(1));if(SK[h]){st.skill=h;render()}else if(h.startsWith("post-"))openPost(h.slice(5))}
+window.addEventListener("hashchange",fromHash);
+
+fetch("/content/settings.json").then(r=>r.ok?r.json():null).then(s=>{if(!s)return;
+  if(s.site_title){$("#siteTitle").textContent=s.site_title;document.title=s.site_title}
+  if(s.intro)$("#intro").textContent=s.intro;
+  if(s.author)$("#author").textContent=s.author;
+  if(s.footer!==undefined)$("#footerText").textContent=s.footer;
+}).catch(()=>{});
+fetch("/posts.json").then(r=>r.json()).then(list=>{posts=list.map(norm);render();fromHash()})
+  .catch(()=>{$("#grid").innerHTML='<div class="empty">Couldn’t load the resources. Please refresh the page.</div>'});
+
+/* Sends you to the panel after you accept the email invitation */
+if(window.netlifyIdentity){netlifyIdentity.on("init",u=>{if(!u)netlifyIdentity.on("login",()=>{document.location.href="/admin/"})})}
+}
+</script>
+</body>
+</html>
